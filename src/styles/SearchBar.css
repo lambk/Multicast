@@ -1,4 +1,8 @@
 .search-bar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: #5d6d7e30;
   border-width: 0;
   border-radius: 0.5rem;
