@@ -18,7 +18,7 @@ export default class WindowArea extends Component {
   onSearch = e => {
     e.preventDefault();
     const url = convertToYoutubeEmbed(this.state.searchText);
-    this.setState({ srcList: [...this.state.srcList, url] });
+    this.setState({ searchText: '', srcList: [...this.state.srcList, url] });
   };
 
   render() {
