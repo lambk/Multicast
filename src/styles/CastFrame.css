@@ -1,0 +1,6 @@
+.cast-frame {
+  position: absolute;
+  z-index: 500;
+  top: 50px;
+  left: 50px;
+}
