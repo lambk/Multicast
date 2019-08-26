@@ -1,6 +1,13 @@
 .cast-frame {
   position: absolute;
   z-index: 500;
-  top: 50px;
-  left: 50px;
+  box-shadow: -3px 3px 10px #1b2631;
+}
+
+.frame-handle {
+  height: 1rem;
+  background: #1b2631;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  cursor: pointer;
 }

@@ -4,6 +4,7 @@ import '../styles/CastFrame.css';
 const CastFrame = ({ src }) => {
   return (
     <div className="cast-frame">
+      <div className="frame-handle"></div>
       <iframe
         title="test-title"
         width="560"

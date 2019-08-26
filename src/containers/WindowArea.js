@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Draggable from 'react-draggable';
 import CastFrame from '../presenters/CastFrame';
 import SearchBar from '../presenters/SearchBar';
 import { convertToYoutubeEmbed } from '../services/url-rewriter';
@@ -25,7 +26,11 @@ export default class WindowArea extends Component {
       <main>
         <SearchBar searchText={this.state.searchText} handleType={this.onSearchType} handleSubmit={this.onSearch} />
         {this.state.srcList.map((src, index) => (
-          <CastFrame key={index} src={src} />
+          <Draggable key={`cast-frame-${index}`} handle=".frame-handle">
+            <section>
+              <CastFrame src={src} />
+            </section>
+          </Draggable>
         ))}
       </main>
     );
