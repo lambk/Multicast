@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import Draggable from 'react-draggable';
+import { connect } from 'react-redux';
 import CastFrame from '../presenters/CastFrame';
 import SearchBar from '../presenters/SearchBar';
 import { convertToYoutubeEmbed } from '../services/url-rewriter';
+import { addFrame } from '../state/actions/frames.actions';
 import '../styles/WindowArea.css';
 
-export default class WindowArea extends Component {
+export class WindowArea extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchText: '', srcList: [] };
+    this.state = { searchText: '' };
   }
 
   onSearchType = e => {
@@ -17,15 +19,16 @@ export default class WindowArea extends Component {
 
   onSearch = e => {
     e.preventDefault();
+    this.setState({ searchText: '' });
     const url = convertToYoutubeEmbed(this.state.searchText);
-    this.setState({ searchText: '', srcList: [...this.state.srcList, url] });
+    this.props.addFrame(url);
   };
 
   render() {
     return (
       <main>
         <SearchBar searchText={this.state.searchText} handleType={this.onSearchType} handleSubmit={this.onSearch} />
-        {this.state.srcList.map((src, index) => (
+        {this.props.frames.map((src, index) => (
           <Draggable key={`cast-frame-${index}`} handle=".frame-handle">
             <section>
               <CastFrame src={src} />
@@ -36,3 +39,10 @@ export default class WindowArea extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({ frames: state.frames });
+
+export default connect(
+  mapStateToProps,
+  { addFrame }
+)(WindowArea);

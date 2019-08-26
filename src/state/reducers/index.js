@@ -1,3 +1,4 @@
 import { combineReducers } from 'redux';
+import frames from './frames.reducer';
 
-export default combineReducers({ placeholder: (state = null) => state });
+export default combineReducers({ frames });
