@@ -5,11 +5,11 @@ import '../styles/WindowArea.css';
 export default class WindowArea extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchText: null };
+    this.state = { searchText: '' };
   }
 
   onSearchType = e => {
-    this.setState({ searchText: e.target.value });
+    this.setState({ searchText: e.target.value || '' });
   };
 
   render() {
