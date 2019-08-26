@@ -3,3 +3,16 @@ main {
   width: 100vw;
   height: 100vh;
 }
+
+.cast-frame-wrapper {
+  width: 560px;
+}
+
+.iframe-fix-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1000%;
+  height: 1000%;
+  z-index: 501;
+}

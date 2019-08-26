@@ -1,6 +1,4 @@
 .cast-frame {
-  position: absolute;
-  z-index: 500;
   box-shadow: -3px 3px 10px #1b2631;
 }
 
