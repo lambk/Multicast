@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CastFrame from '../presenters/CastFrame';
 import SearchBar from '../presenters/SearchBar';
+import { convertToYoutubeEmbed } from '../services/url-rewriter';
 import '../styles/WindowArea.css';
 
 export default class WindowArea extends Component {
@@ -15,7 +16,8 @@ export default class WindowArea extends Component {
 
   onSearch = e => {
     e.preventDefault();
-    this.setState({ srcList: [...this.state.srcList, this.state.searchText] });
+    const url = convertToYoutubeEmbed(this.state.searchText);
+    this.setState({ srcList: [...this.state.srcList, url] });
   };
 
   render() {
