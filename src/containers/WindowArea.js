@@ -5,7 +5,7 @@ import { ResizableBox } from 'react-resizable';
 import CastFrame from '../presenters/CastFrame';
 import SearchBar from '../presenters/SearchBar';
 import { convertToYoutubeEmbed } from '../services/url-rewriter';
-import { addFrame } from '../state/actions/frames.actions';
+import { addFrame, removeFrame } from '../state/actions/frames.actions';
 import '../styles/WindowArea.css';
 
 // See https://github.com/mzabriskie/react-draggable/issues/358#issuecomment-500102484
@@ -43,6 +43,7 @@ export class WindowArea extends Component {
           <Draggable
             key={`cast-frame-${index}`}
             handle=".frame-handle"
+            cancel="button"
             bounds="parent"
             onStart={this.onTransformStart}
             onStop={this.onTransformStop}
@@ -55,7 +56,7 @@ export class WindowArea extends Component {
                 onResizeStart={this.onTransformStart}
                 onResizeStop={this.onTransformStop}
               >
-                <CastFrame src={src} />
+                <CastFrame src={src} handleClose={() => this.props.removeFrame(index)} />
               </ResizableBox>
             </section>
           </Draggable>
@@ -70,5 +71,5 @@ const mapStateToProps = state => ({ frames: state.frames });
 
 export default connect(
   mapStateToProps,
-  { addFrame }
+  { addFrame, removeFrame }
 )(WindowArea);

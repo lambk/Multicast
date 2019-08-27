@@ -5,7 +5,14 @@
   flex-direction: column;
 }
 
+.cast-frame iframe {
+  width: 100%;
+  flex-grow: 1;
+}
+
 .frame-handle {
+  display: flex;
+  justify-content: flex-end;
   height: 1rem;
   background: #1b2631;
   border-top-left-radius: 3px;
@@ -13,7 +20,16 @@
   cursor: pointer;
 }
 
-.cast-frame iframe {
-  width: 100%;
-  flex-grow: 1;
+.frame-handle button {
+  background: transparent;
+  border-width: 0;
+  border-radius: 2px;
+  padding: 0 0.2rem;
+  outline: none;
+  color: white;
+  cursor: pointer;
+}
+
+.frame-handle button:hover {
+  background: rgba(255, 255, 255, 0.5);
 }

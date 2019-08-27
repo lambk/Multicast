@@ -1,10 +1,14 @@
 import React from 'react';
 import '../styles/CastFrame.css';
 
-const CastFrame = ({ src }) => {
+const CastFrame = ({ src, handleClose }) => {
   return (
     <div className="cast-frame">
-      <div className="frame-handle"></div>
+      <div className="frame-handle">
+        <button type="button" onClick={handleClose}>
+          &times;
+        </button>
+      </div>
       <iframe
         title="test-title"
         src={src}
