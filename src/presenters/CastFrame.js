@@ -7,8 +7,6 @@ const CastFrame = ({ src }) => {
       <div className="frame-handle"></div>
       <iframe
         title="test-title"
-        width="560"
-        height="315"
         src={src}
         frameBorder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"

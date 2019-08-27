@@ -21,10 +21,6 @@ main {
   user-select: none;
 }
 
-.cast-frame-wrapper {
-  width: 560px;
-}
-
 .iframe-fix-cover {
   position: absolute;
   top: 0;
@@ -32,4 +28,8 @@ main {
   width: 1000%;
   height: 1000%;
   z-index: 501;
+}
+
+.react-draggable {
+  display: inline-block;
 }

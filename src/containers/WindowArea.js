@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import { connect } from 'react-redux';
+import { ResizableBox } from 'react-resizable';
 import CastFrame from '../presenters/CastFrame';
 import SearchBar from '../presenters/SearchBar';
 import { convertToYoutubeEmbed } from '../services/url-rewriter';
@@ -13,7 +14,7 @@ const iframeFixCover = <div className="iframe-fix-cover"></div>;
 export class WindowArea extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchText: '', dragging: false };
+    this.state = { searchText: '', transforming: false };
   }
 
   onSearchType = e => {
@@ -27,9 +28,9 @@ export class WindowArea extends Component {
     this.props.addFrame(url);
   };
 
-  onDragStart = () => this.setState({ dragging: true });
+  onTransformStart = () => this.setState({ transforming: true });
 
-  onDragStop = () => this.setState({ dragging: false });
+  onTransformStop = () => this.setState({ transforming: false });
 
   render() {
     return (
@@ -43,15 +44,23 @@ export class WindowArea extends Component {
             key={`cast-frame-${index}`}
             handle=".frame-handle"
             bounds="parent"
-            onStart={this.onDragStart}
-            onStop={this.onDragStop}
+            onStart={this.onTransformStart}
+            onStop={this.onTransformStop}
           >
-            <section className="cast-frame-wrapper">
-              <CastFrame src={src} />
+            <section>
+              <ResizableBox
+                width={560}
+                height={331}
+                lockAspectRatio={true}
+                onResizeStart={this.onTransformStart}
+                onResizeStop={this.onTransformStop}
+              >
+                <CastFrame src={src} />
+              </ResizableBox>
             </section>
           </Draggable>
         ))}
-        {this.state.dragging && iframeFixCover}
+        {this.state.transforming && iframeFixCover}
       </main>
     );
   }
