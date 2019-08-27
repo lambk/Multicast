@@ -1,16 +1,16 @@
 export const ADD_FRAME = 'ADD_FRAME';
 export const REMOVE_FRAME = 'REMOVE_FRAME';
 
-export function addFrame(src) {
+export function addFrame(frame) {
   return {
     type: ADD_FRAME,
-    src
+    frame
   };
 }
 
-export function removeFrame(index) {
+export function removeFrame(uuid) {
   return {
     type: REMOVE_FRAME,
-    index
+    uuid
   };
 }

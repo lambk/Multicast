@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { ResizableBox } from 'react-resizable';
 import CastFrame from '../presenters/CastFrame';
 import SearchBar from '../presenters/SearchBar';
+import { generateFrame } from '../services/frame';
 import { convertToYoutubeEmbed } from '../services/url-rewriter';
 import { addFrame, removeFrame } from '../state/actions/frames.actions';
 import '../styles/WindowArea.css';
@@ -25,7 +26,8 @@ export class WindowArea extends Component {
     e.preventDefault();
     this.setState({ searchText: '' });
     const url = convertToYoutubeEmbed(this.state.searchText);
-    this.props.addFrame(url);
+    const frame = generateFrame(url);
+    this.props.addFrame(frame);
   };
 
   onTransformStart = () => this.setState({ transforming: true });
@@ -39,9 +41,9 @@ export class WindowArea extends Component {
           <h1 className="title">Multicast</h1>
           <SearchBar searchText={this.state.searchText} handleType={this.onSearchType} handleSubmit={this.onSearch} />
         </section>
-        {this.props.frames.map((src, index) => (
+        {this.props.frames.map(frame => (
           <Draggable
-            key={`cast-frame-${index}`}
+            key={`cf-${frame.uuid}`}
             handle=".frame-handle"
             cancel="button"
             bounds="parent"
@@ -56,7 +58,7 @@ export class WindowArea extends Component {
                 onResizeStart={this.onTransformStart}
                 onResizeStop={this.onTransformStop}
               >
-                <CastFrame src={src} handleClose={() => this.props.removeFrame(index)} />
+                <CastFrame src={frame.src} handleClose={() => this.props.removeFrame(frame.uuid)} />
               </ResizableBox>
             </section>
           </Draggable>
