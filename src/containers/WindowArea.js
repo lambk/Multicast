@@ -34,7 +34,10 @@ export class WindowArea extends Component {
   render() {
     return (
       <main>
-        <SearchBar searchText={this.state.searchText} handleType={this.onSearchType} handleSubmit={this.onSearch} />
+        <section className="center-block">
+          <h1 className="title">Multicast</h1>
+          <SearchBar searchText={this.state.searchText} handleType={this.onSearchType} handleSubmit={this.onSearch} />
+        </section>
         {this.props.frames.map((src, index) => (
           <Draggable
             key={`cast-frame-${index}`}
