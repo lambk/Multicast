@@ -49,6 +49,7 @@ export class WindowArea extends Component {
             bounds="parent"
             onStart={this.onTransformStart}
             onStop={this.onTransformStop}
+            defaultPosition={{ x: this.props.frames.length * 20, y: this.props.frames.length * 20 }}
           >
             <section>
               <ResizableBox
