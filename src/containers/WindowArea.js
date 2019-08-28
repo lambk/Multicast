@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import Draggable from 'react-draggable';
 import { connect } from 'react-redux';
-import { ResizableBox } from 'react-resizable';
-import CastFrame from '../presenters/CastFrame';
 import SearchBar from '../presenters/SearchBar';
+import TransformableFrame from '../presenters/TransformableFrame';
 import { generateFrame } from '../services/frame';
 import { convertToYoutubeEmbed } from '../services/url-rewriter';
 import { addFrame, removeFrame } from '../state/actions/frames.actions';
@@ -42,27 +40,14 @@ export class WindowArea extends Component {
           <SearchBar searchText={this.state.searchText} handleType={this.onSearchType} handleSubmit={this.onSearch} />
         </section>
         {this.props.frames.map(frame => (
-          <Draggable
+          <TransformableFrame
             key={`cf-${frame.uuid}`}
-            handle=".frame-handle"
-            cancel="button"
-            bounds="parent"
-            onStart={this.onTransformStart}
-            onStop={this.onTransformStop}
-            defaultPosition={{ x: this.props.frames.length * 20, y: this.props.frames.length * 20 }}
-          >
-            <section>
-              <ResizableBox
-                width={560}
-                height={331}
-                lockAspectRatio={true}
-                onResizeStart={this.onTransformStart}
-                onResizeStop={this.onTransformStop}
-              >
-                <CastFrame src={frame.src} handleClose={() => this.props.removeFrame(frame.uuid)} />
-              </ResizableBox>
-            </section>
-          </Draggable>
+            frame={frame}
+            framesLength={this.props.frames.length}
+            onTransformStart={this.onTransformStart}
+            onTransformStop={this.onTransformStop}
+            onClose={() => this.props.removeFrame(frame.uuid)}
+          />
         ))}
         {this.state.transforming && iframeFixCover}
       </main>
