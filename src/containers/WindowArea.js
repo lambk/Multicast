@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import CastFrame from '../presenters/CastFrame';
 import SearchBar from '../presenters/SearchBar';
-import TransformableFrame from '../presenters/TransformableFrame';
+import Transformable from '../presenters/Transformable';
 import { generateFrame } from '../services/frame';
 import { convertToYoutubeEmbed } from '../services/url-rewriter';
 import { addFrame, removeFrame } from '../state/actions/frames.actions';
@@ -39,15 +40,15 @@ export class WindowArea extends Component {
           <h1 className="title">Multicast</h1>
           <SearchBar searchText={this.state.searchText} handleType={this.onSearchType} handleSubmit={this.onSearch} />
         </section>
-        {this.props.frames.map(frame => (
-          <TransformableFrame
+        {this.props.frames.map((frame, index) => (
+          <Transformable
             key={`cf-${frame.uuid}`}
-            frame={frame}
-            framesLength={this.props.frames.length}
+            offset={index * 20}
             onTransformStart={this.onTransformStart}
             onTransformStop={this.onTransformStop}
-            onClose={() => this.props.removeFrame(frame.uuid)}
-          />
+          >
+            <CastFrame src={frame.src} handleClose={() => this.props.removeFrame(frame.uuid)} />
+          </Transformable>
         ))}
         {this.state.transforming && iframeFixCover}
       </main>

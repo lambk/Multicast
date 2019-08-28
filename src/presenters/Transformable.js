@@ -1,9 +1,8 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 import { ResizableBox } from 'react-resizable';
-import CastFrame from './CastFrame';
 
-const TransformableFrame = ({ frame, framesLength, onTransformStart, onTransformStop, onClose }) => {
+const Transformable = ({ offset, onTransformStart, onTransformStop, children }) => {
   return (
     <Draggable
       handle=".frame-handle"
@@ -11,7 +10,7 @@ const TransformableFrame = ({ frame, framesLength, onTransformStart, onTransform
       bounds="parent"
       onStart={onTransformStart}
       onStop={onTransformStop}
-      defaultPosition={{ x: framesLength * 20, y: framesLength * 20 }}
+      defaultPosition={{ x: offset, y: offset }}
     >
       <section>
         <ResizableBox
@@ -21,11 +20,11 @@ const TransformableFrame = ({ frame, framesLength, onTransformStart, onTransform
           onResizeStart={onTransformStart}
           onResizeStop={onTransformStop}
         >
-          <CastFrame src={frame.src} handleClose={onClose} />
+          {children}
         </ResizableBox>
       </section>
     </Draggable>
   );
 };
 
-export default TransformableFrame;
+export default Transformable;
