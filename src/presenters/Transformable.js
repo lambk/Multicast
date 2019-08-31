@@ -2,7 +2,14 @@ import React from 'react';
 import Draggable from 'react-draggable';
 import { ResizableBox } from 'react-resizable';
 
+const defaultWidth = 560;
+const defaultHeight = 331;
+const aspectRatio = 560 / 331;
+const minWidth = 271;
+let maxWidth;
+
 const Transformable = ({ offset, onTransformStart, onTransformStop, children }) => {
+  maxWidth = window.innerWidth;
   return (
     <Draggable
       handle=".frame-handle"
@@ -14,8 +21,10 @@ const Transformable = ({ offset, onTransformStart, onTransformStop, children }) 
     >
       <section>
         <ResizableBox
-          width={560}
-          height={331}
+          width={defaultWidth}
+          height={defaultHeight}
+          minConstraints={[minWidth, minWidth / aspectRatio]}
+          maxConstraints={[maxWidth, maxWidth / aspectRatio]}
           lockAspectRatio={true}
           onResizeStart={onTransformStart}
           onResizeStop={onTransformStop}
