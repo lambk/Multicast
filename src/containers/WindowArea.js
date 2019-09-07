@@ -4,7 +4,7 @@ import CastFrame from '../presenters/CastFrame';
 import SearchBar from '../presenters/SearchBar';
 import Transformable from '../presenters/Transformable';
 import { generateFrame } from '../services/frame';
-import { convertToYoutubeEmbed } from '../services/url-rewriter';
+import { convertSourceUrl } from '../services/url-rewriter';
 import { addFrame, removeFrame } from '../state/actions/frames.actions';
 import '../styles/WindowArea.css';
 
@@ -24,7 +24,7 @@ export class WindowArea extends Component {
   onSearch = e => {
     e.preventDefault();
     this.setState({ searchText: '' });
-    const url = convertToYoutubeEmbed(this.state.searchText);
+    const url = convertSourceUrl(this.state.searchText);
     const frame = generateFrame(url);
     this.props.addFrame(frame);
   };
