@@ -8,6 +8,9 @@
 .cast-frame iframe {
   width: 100%;
   flex-grow: 1;
+  background-image: url(/player-silhouette.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 .frame-handle {
