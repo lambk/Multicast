@@ -4,7 +4,7 @@ import '../styles/SearchBar.css';
 const SearchBar = ({ searchText, handleType, handleSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" className="search-bar" value={searchText} onChange={handleType} placeholder="..." />
+      <input type="text" className="search-bar" value={searchText} onChange={handleType} placeholder="https://" />
     </form>
   );
 };
