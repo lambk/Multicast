@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import useTransform from '../hooks/useTransform';
 import CastFrame from '../presenters/CastFrame';
 import SearchBar from '../presenters/SearchBar';
 import Transformable from '../presenters/Transformable';
@@ -14,7 +15,7 @@ const iframeFixCover = <div className="iframe-fix-cover"></div>;
 
 function WindowAreaHook({ frames, addFrame, removeFrame }) {
   const [input, setInput] = useState('');
-  const [transforming, setTransforming] = useState(false);
+  const [transforming, onTransformStart, onTransformStop] = useTransform(false);
 
   function handleType(e) {
     setInput(e.target.value || '');
@@ -38,8 +39,8 @@ function WindowAreaHook({ frames, addFrame, removeFrame }) {
         <Transformable
           key={`cf-${frame.uuid}`}
           offset={index * 20}
-          onTransformStart={() => setTransforming(true)}
-          onTransformStop={() => setTransforming(false)}
+          onTransformStart={onTransformStart}
+          onTransformStop={onTransformStop}
         >
           <CastFrame src={frame.src} handleClose={() => removeFrame(frame.uuid)} />
         </Transformable>
