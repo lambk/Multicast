@@ -1,22 +1,20 @@
 import React from 'react';
-import '../styles/CastFrame.css';
+import { CloseButton, FrameContent, FrameHandle, FrameOuter } from '../styles/frame';
 
 const CastFrame = ({ src, handleClose }) => {
   return (
-    <div className="cast-frame">
-      <div className="frame-handle">
-        <button type="button" onClick={handleClose}>
-          &times;
-        </button>
-      </div>
-      <iframe
+    <FrameOuter>
+      <FrameHandle data-drag-target>
+        <CloseButton onClick={handleClose}>&times;</CloseButton>
+      </FrameHandle>
+      <FrameContent
         title="test-title"
         src={src}
         frameBorder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
-      ></iframe>
-    </div>
+      ></FrameContent>
+    </FrameOuter>
   );
 };
 

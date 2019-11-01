@@ -6,7 +6,8 @@ import Transformable from '../presenters/Transformable';
 import { generateFrame } from '../services/frame';
 import { convertSourceUrl } from '../services/url-rewriter';
 import { addFrame, removeFrame } from '../state/actions/frames.actions';
-import '../styles/WindowArea.css';
+import '../styles/react-draggable.css';
+import { Center, Content, Title } from '../styles/window';
 
 // See https://github.com/mzabriskie/react-draggable/issues/358#issuecomment-500102484
 const iframeFixCover = <div className="iframe-fix-cover"></div>;
@@ -35,11 +36,11 @@ export class WindowArea extends Component {
 
   render() {
     return (
-      <main>
-        <section className="center-block">
-          <h1 className="title">Multicast</h1>
+      <Content>
+        <Center>
+          <Title>Multicast</Title>
           <SearchBar searchText={this.state.searchText} handleType={this.onSearchType} handleSubmit={this.onSearch} />
-        </section>
+        </Center>
         {this.props.frames.map((frame, index) => (
           <Transformable
             key={`cf-${frame.uuid}`}
@@ -51,7 +52,7 @@ export class WindowArea extends Component {
           </Transformable>
         ))}
         {this.state.transforming && iframeFixCover}
-      </main>
+      </Content>
     );
   }
 }

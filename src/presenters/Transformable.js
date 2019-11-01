@@ -12,7 +12,7 @@ const Transformable = ({ offset, onTransformStart, onTransformStop, children }) 
   maxWidth = window.innerWidth;
   return (
     <Draggable
-      handle=".frame-handle"
+      handle="[data-drag-target]"
       cancel="button"
       bounds="parent"
       onStart={onTransformStart}
