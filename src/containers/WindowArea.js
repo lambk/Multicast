@@ -1,64 +1,57 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import useTransform from '../hooks/useTransform';
 import CastFrame from '../presenters/CastFrame';
 import SearchBar from '../presenters/SearchBar';
 import Transformable from '../presenters/Transformable';
 import { generateFrame } from '../services/frame';
-import { convertToYoutubeEmbed } from '../services/url-rewriter';
+import { convertSourceUrl } from '../services/url-rewriter';
 import { addFrame, removeFrame } from '../state/actions/frames.actions';
-import '../styles/WindowArea.css';
+import '../styles/react-draggable.css';
+import { Center, Content, Title } from '../styles/window';
 
 // See https://github.com/mzabriskie/react-draggable/issues/358#issuecomment-500102484
 const iframeFixCover = <div className="iframe-fix-cover"></div>;
 
-export class WindowArea extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { searchText: '', transforming: false };
+function WindowAreaHook({ frames, addFrame, removeFrame }) {
+  const [input, setInput] = useState('');
+  const [transforming, onTransformStart, onTransformStop] = useTransform(false);
+
+  function handleType(e) {
+    setInput(e.target.value || '');
   }
 
-  onSearchType = e => {
-    this.setState({ searchText: e.target.value || '' });
-  };
-
-  onSearch = e => {
+  function handleSearch(e) {
     e.preventDefault();
-    this.setState({ searchText: '' });
-    const url = convertToYoutubeEmbed(this.state.searchText);
+    setInput('');
+    const url = convertSourceUrl(input);
     const frame = generateFrame(url);
-    this.props.addFrame(frame);
-  };
-
-  onTransformStart = () => this.setState({ transforming: true });
-
-  onTransformStop = () => this.setState({ transforming: false });
-
-  render() {
-    return (
-      <main>
-        <section className="center-block">
-          <h1 className="title">Multicast</h1>
-          <SearchBar searchText={this.state.searchText} handleType={this.onSearchType} handleSubmit={this.onSearch} />
-        </section>
-        {this.props.frames.map((frame, index) => (
-          <Transformable
-            key={`cf-${frame.uuid}`}
-            offset={index * 20}
-            onTransformStart={this.onTransformStart}
-            onTransformStop={this.onTransformStop}
-          >
-            <CastFrame src={frame.src} handleClose={() => this.props.removeFrame(frame.uuid)} />
-          </Transformable>
-        ))}
-        {this.state.transforming && iframeFixCover}
-      </main>
-    );
+    addFrame(frame);
   }
+
+  return (
+    <Content>
+      <Center>
+        <Title>Multicast</Title>
+        <SearchBar searchText={input} handleType={handleType} handleSubmit={handleSearch} />
+      </Center>
+      {frames.map((frame, index) => (
+        <Transformable
+          key={`cf-${frame.uuid}`}
+          offset={index * 20}
+          onTransformStart={onTransformStart}
+          onTransformStop={onTransformStop}
+        >
+          <CastFrame src={frame.src} handleClose={() => removeFrame(frame.uuid)} />
+        </Transformable>
+      ))}
+      {transforming && iframeFixCover}
+    </Content>
+  );
 }
 
 const mapStateToProps = state => ({ frames: state.frames });
-
 export default connect(
   mapStateToProps,
   { addFrame, removeFrame }
-)(WindowArea);
+)(WindowAreaHook);
