@@ -9,6 +9,7 @@ const TextInput = styled.input.attrs({ type: 'text' })`
   border-radius: 0.5rem;
   box-shadow: -2px 2px 5px #1b2631;
   padding: 1.25rem;
+  font-family: inherit;
   font-size: 1.5rem;
   font-weight: 100;
   color: white;
