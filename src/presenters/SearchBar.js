@@ -1,11 +1,13 @@
 import React from 'react';
-import { TextInput } from '../styles/searchbar';
+import { SearchForm, TextInput } from '../styles/searchbar';
+import { SearchArrow } from './SearchArrow';
 
 const SearchBar = ({ searchText, handleType, handleSubmit }) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <SearchForm onSubmit={handleSubmit}>
       <TextInput type="text" className="search-bar" value={searchText} onChange={handleType} placeholder="https://" />
-    </form>
+      <SearchArrow onClick={handleSubmit} />
+    </SearchForm>
   );
 };
 

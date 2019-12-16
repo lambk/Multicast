@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+const SearchForm = styled.form`
+  position: relative;
+
+  &:hover input,
+  &:focus input {
+    box-shadow: -3px 3px 10px #1b2631;
+    padding-right: 2.25rem;
+  }
+`;
+
 const inputBackground = '#314050';
 
 // TODO replace box-shadow color with theme variable (see frame styles)
@@ -13,13 +23,7 @@ const TextInput = styled.input.attrs({ type: 'text' })`
   font-size: 1.5rem;
   font-weight: 100;
   color: white;
-  transition: all 100ms ease-out;
-
-  &:hover,
-  &:focus {
-    box-shadow: -3px 3px 10px #1b2631;
-    padding-right: 2.25rem;
-  }
+  transition: 100ms all ease-in-out;
 `;
 
-export { TextInput };
+export { SearchForm, TextInput };
