@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const SearchForm = styled.form`
   position: relative;
+  transition: 100ms all ease-in-out;
 
   img {
     position: absolute;
@@ -15,10 +16,13 @@ const SearchForm = styled.form`
     }
   }
 
-  &:hover input,
-  &:focus-within input {
-    box-shadow: -3px 3px 10px #1b2631;
-    padding-right: 2.25rem;
+  &:hover,
+  &:focus-within {
+    transform: scaleX(1.1);
+
+    input {
+      box-shadow: -3px 3px 10px #1b2631;
+    }
   }
 `;
 
@@ -31,11 +35,11 @@ const SearchInput = styled.input.attrs({ type: 'text' })`
   border-radius: 0.5rem;
   box-shadow: -2px 2px 5px #1b2631;
   padding: 1.25rem;
+  padding-right: 60px;
   font-family: inherit;
   font-size: 1.5rem;
   font-weight: 100;
   color: white;
-  transition: 100ms all ease-in-out;
 `;
 
 export { SearchForm, SearchInput };
