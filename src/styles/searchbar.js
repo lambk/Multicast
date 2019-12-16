@@ -16,7 +16,7 @@ const SearchForm = styled.form`
   }
 
   &:hover input,
-  &:focus input {
+  &:focus-within input {
     box-shadow: -3px 3px 10px #1b2631;
     padding-right: 2.25rem;
   }
