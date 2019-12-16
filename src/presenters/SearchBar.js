@@ -6,7 +6,7 @@ const SearchBar = ({ searchText, handleType, handleSubmit }) => {
   return (
     <SearchForm onSubmit={handleSubmit}>
       <TextInput type="text" className="search-bar" value={searchText} onChange={handleType} placeholder="https://" />
-      <SearchArrow onClick={handleSubmit} />
+      {(searchText.trim() && <SearchArrow onClick={handleSubmit} />) || null}
     </SearchForm>
   );
 };
