@@ -1,11 +1,13 @@
 import React from 'react';
-import { TextInput } from '../styles/searchbar';
+import { SearchForm, SearchInput } from '../styles/searchbar';
 
-const SearchBar = ({ searchText, handleType, handleSubmit }) => {
+const SearchBar = ({ searchText, valid, handleType, handleSubmit }) => {
+  const inputClass = !valid && searchText ? 'error' : '';
   return (
-    <form onSubmit={handleSubmit}>
-      <TextInput type="text" className="search-bar" value={searchText} onChange={handleType} placeholder="https://" />
-    </form>
+    <SearchForm onSubmit={handleSubmit}>
+      <SearchInput type="text" className={inputClass} value={searchText} onChange={handleType} placeholder="https://" />
+      {(searchText.trim() && <img src="arrow.png" alt="Search" height="30" onClick={handleSubmit} />) || null}
+    </SearchForm>
   );
 };
 
