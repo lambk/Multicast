@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import useTransform from '../hooks/useTransform';
+import { useUrlValidate } from '../hooks/useUrlValidate';
 import CastFrame from '../presenters/CastFrame';
 import SearchBar from '../presenters/SearchBar';
 import Transformable from '../presenters/Transformable';
@@ -15,6 +16,7 @@ const iframeFixCover = <div className="iframe-fix-cover"></div>;
 
 function WindowAreaHook({ frames, addFrame, removeFrame }) {
   const [input, setInput] = useState('');
+  const isValidInput = useUrlValidate(input);
   const [transforming, onTransformStart, onTransformStop] = useTransform(false);
 
   function handleType(e) {
@@ -23,6 +25,9 @@ function WindowAreaHook({ frames, addFrame, removeFrame }) {
 
   function handleSearch(e) {
     e.preventDefault();
+    if (!isValidInput) {
+      return;
+    }
     setInput('');
     const url = convertSourceUrl(input);
     const frame = generateFrame(url);
@@ -33,7 +38,7 @@ function WindowAreaHook({ frames, addFrame, removeFrame }) {
     <Content>
       <Center>
         <Title>Multicast</Title>
-        <SearchBar searchText={input} handleType={handleType} handleSubmit={handleSearch} />
+        <SearchBar searchText={input} valid={isValidInput} handleType={handleType} handleSubmit={handleSearch} />
       </Center>
       {frames.map((frame, index) => (
         <Transformable
@@ -51,7 +56,4 @@ function WindowAreaHook({ frames, addFrame, removeFrame }) {
 }
 
 const mapStateToProps = state => ({ frames: state.frames });
-export default connect(
-  mapStateToProps,
-  { addFrame, removeFrame }
-)(WindowAreaHook);
+export default connect(mapStateToProps, { addFrame, removeFrame })(WindowAreaHook);
