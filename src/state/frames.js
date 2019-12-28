@@ -1,4 +1,19 @@
-import { ADD_FRAME, REMOVE_FRAME } from '../actions/frames.actions';
+const ADD_FRAME = 'frames/frameAdded';
+const REMOVE_FRAME = 'frames/frameRemoved';
+
+export function addFrame(frame) {
+  return {
+    type: ADD_FRAME,
+    frame
+  };
+}
+
+export function removeFrame(uuid) {
+  return {
+    type: REMOVE_FRAME,
+    uuid
+  };
+}
 
 export default function framesReducer(state = [], action) {
   switch (action.type) {

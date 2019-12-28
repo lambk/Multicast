@@ -7,7 +7,7 @@ import SearchBar from '../presenters/SearchBar';
 import Transformable from '../presenters/Transformable';
 import { generateFrame } from '../services/frame';
 import { convertSourceUrl } from '../services/url-rewriter';
-import { addFrame, removeFrame } from '../state/actions/frames.actions';
+import { addFrame, removeFrame } from '../state/frames';
 import '../styles/react-draggable.css';
 import { Center, Content, Title } from '../styles/window';
 
