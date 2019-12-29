@@ -47,7 +47,7 @@ function WindowArea({ frames, addFrame, removeFrame }) {
           onTransformStart={onTransformStart}
           onTransformStop={onTransformStop}
         >
-          <CastFrame src={frame.src} handleClose={() => removeFrame(frame.uuid)} />
+          <CastFrame src={frame.src} handleClose={() => removeFrame(frame)} />
         </Transformable>
       ))}
       {transforming && iframeFixCover}
@@ -55,5 +55,5 @@ function WindowArea({ frames, addFrame, removeFrame }) {
   );
 }
 
-const mapStateToProps = state => ({ frames: state.frames });
+const mapStateToProps = state => ({ frames: state.frames.opened });
 export default connect(mapStateToProps, { addFrame, removeFrame })(WindowArea);

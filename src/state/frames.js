@@ -1,6 +1,11 @@
 const ADD_FRAME = 'frames/frameAdded';
 const REMOVE_FRAME = 'frames/frameRemoved';
 
+const initialState = {
+  opened: [],
+  lastClosed: null
+};
+
 export function addFrame(frame) {
   return {
     type: ADD_FRAME,
@@ -8,19 +13,20 @@ export function addFrame(frame) {
   };
 }
 
-export function removeFrame(uuid) {
+export function removeFrame(frame) {
   return {
     type: REMOVE_FRAME,
-    uuid
+    frame
   };
 }
 
-export default function framesReducer(state = [], action) {
+export default function framesReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_FRAME:
-      return [...state, action.frame];
+      return { ...state, opened: [...state.opened, action.frame] };
     case REMOVE_FRAME:
-      return state.filter(frame => frame.uuid !== action.uuid);
+      const opened = state.opened.filter(frame => frame.uuid !== action.frame.uuid);
+      return { ...state, opened, lastClosed: action.frame };
     default:
       return state;
   }
