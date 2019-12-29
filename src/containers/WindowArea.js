@@ -14,7 +14,7 @@ import { Center, Content, Title } from '../styles/window';
 // See https://github.com/mzabriskie/react-draggable/issues/358#issuecomment-500102484
 const iframeFixCover = <div className="iframe-fix-cover"></div>;
 
-function WindowAreaHook({ frames, addFrame, removeFrame }) {
+function WindowArea({ frames, addFrame, removeFrame }) {
   const [input, setInput] = useState('');
   const isValidInput = useUrlValidate(input);
   const [transforming, onTransformStart, onTransformStop] = useTransform(false);
@@ -56,4 +56,4 @@ function WindowAreaHook({ frames, addFrame, removeFrame }) {
 }
 
 const mapStateToProps = state => ({ frames: state.frames });
-export default connect(mapStateToProps, { addFrame, removeFrame })(WindowAreaHook);
+export default connect(mapStateToProps, { addFrame, removeFrame })(WindowArea);
