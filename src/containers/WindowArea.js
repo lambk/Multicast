@@ -7,14 +7,15 @@ import SearchBar from '../presenters/SearchBar';
 import Transformable from '../presenters/Transformable';
 import { generateFrame } from '../services/frame';
 import { convertSourceUrl } from '../services/url-rewriter';
-import { addFrame, recoverFrame, removeFrame } from '../state/frames';
+import { addFrame, removeFrame } from '../state/frames';
 import '../styles/react-draggable.css';
 import { Center, Content, Title } from '../styles/window';
+import NotificationContainer from './NotificationContainer';
 
 // See https://github.com/mzabriskie/react-draggable/issues/358#issuecomment-500102484
 const iframeFixCover = <div className="iframe-fix-cover"></div>;
 
-function WindowArea({ frames, addFrame, removeFrame, recoverFrame }) {
+function WindowArea({ frames, addFrame, removeFrame }) {
   const [input, setInput] = useState('');
   const isValidInput = useUrlValidate(input);
   const [transforming, onTransformStart, onTransformStop] = useTransform(false);
@@ -40,6 +41,7 @@ function WindowArea({ frames, addFrame, removeFrame, recoverFrame }) {
         <Title>Multicast</Title>
         <SearchBar searchText={input} valid={isValidInput} handleType={handleType} handleSubmit={handleSearch} />
       </Center>
+      <NotificationContainer />
       {frames.map((frame, index) => (
         <Transformable
           key={`cf-${frame.uuid}`}
@@ -56,4 +58,4 @@ function WindowArea({ frames, addFrame, removeFrame, recoverFrame }) {
 }
 
 const mapStateToProps = state => ({ frames: state.frames.opened });
-export default connect(mapStateToProps, { addFrame, removeFrame, recoverFrame })(WindowArea);
+export default connect(mapStateToProps, { addFrame, removeFrame })(WindowArea);
