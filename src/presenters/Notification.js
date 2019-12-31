@@ -36,10 +36,10 @@ const NotificationAction = styled.a`
   }
 `;
 
-export const Notification = ({ onAction, onClose }) => {
+export const Notification = ({ style, onAction, onClose }) => {
   return (
     <NotificationPositioner>
-      <NotificationBody>
+      <NotificationBody style={style}>
         <span>Cast closed</span>
         <NotificationAction onClick={onAction}>Undo</NotificationAction>
         <NotificationAction onClick={onClose}>Close</NotificationAction>
